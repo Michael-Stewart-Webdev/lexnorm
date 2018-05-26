@@ -16,10 +16,7 @@ import os
 class DictionaryNormaliser:	   
 
 	def __init__(self, pwl_filename):
-
-		self.d = enchant.DictWithPWL("en_GB", pwl_filename)
-
-		return None
+		self.d = enchant.Dict("en_GB")#, pwl_filename)
 
 	def check(self, word):
 		return self.d.check(word)
@@ -30,13 +27,29 @@ class DictionaryNormaliser:
 	def normalise(self, token):
 		suggestions = self.d.suggest(token)
 
+		#print self.check(token)
+
 		if len(suggestions) > 1:
-			try:
-				suggestion = next(s for s in suggestions if s.isalpha()).lower()#suggestions[0]
-			except StopIteration:
-				suggestion = suggestions[0]
+			#try:
+		#		suggestion = next(s for s in suggestions).lower()# if s.isalpha()).lower()#suggestions[0]
+		#	except StopIteration:
+			suggestion = suggestions[0].lower()
 		else:
 			suggestion = token.lower()
 
 		return suggestion
 
+
+
+def main():
+
+
+
+	d = DictionaryNormaliser("../asset/fold_1/pwl/pwl.txt")
+
+	while True:
+		i = raw_input("> ")
+		print d.normalise(i)
+
+if __name__ == '__main__':
+	main()
