@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+		<link rel="stylesheet" type="text/css" href="css/bar_chart.css">
+		<link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css">
+
+		<title>Lexical Normalisation Visualisation</title>
+	</head>
+	<body>
+
+
+		<nav id="methods">
+			<div class="container">
+				<ul class="left" style="display: none" id="methods-ul"></ul>
+				<ul class="right">
+					<li id="method-selection-dropdown">
+						<a href="#" id="method-selection-dropdown-button" onclick="event.preventDefault()">
+							<span id="method-selection-dropdown-current-method">1_False_None_None</span>
+							<ul id="method-selection-dropdown-items">
+							</ul>
+						</a>
+
+					</li>
+					<!--<li id="set-information-button"><a href="#" onclick="event.preventDefault()"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Set Composition</a></li>-->
+					<!--<li id="performance-comparison-button"><a href="#" onclick="event.preventDefault()"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Performance Comparison</a></li>-->
+					<li id="results-table-button"><a href="#" onclick="event.preventDefault()"><i class="fa fa-table"></i>&nbsp;&nbsp;Table of Results</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<nav id="sets">
+
+			<ul id="sets-ul">
+				
+			</ul>
+
+		</nav>
+		<main>
+
+
+		<!--
+			<div class="container">				
+				<div id="set-info">
+					<h2><span id="experiment-name">Performance Comparison</span>: Set <span id="set-number">1</span></h2>
+				</div>
+			</div>
+		-->
+			
+
+			<div class="container">
+				
+				<div id="results-table-wrapper" class="hidden">
+					<div class="set-info">
+						<h2>Table of Results (F1 Scores)</h2>
+					</div>
+
+					<div id="results-table-wrapper-inner">
+						
+						<table id="results-table">
+							<thead>
+							</thead>
+							<tbody id="results-table-tbody">
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+								<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+
+
+				<div id="method-results-wrapper">
+
+
+					<button id="prev-method-button" class="prev-next-method-button"><i class="fa fa-chevron-left"></i></button>
+					<button id="next-method-button" class="prev-next-method-button"><i class="fa fa-chevron-right"></i></button>
+
+
+					<div id="set-info" class="set-info">
+						<h2><span id="experiment-name">------------</span><span id="set-number-colon">: </span><span id="dataset-number">Set 1</span><span id="set-name-title"></span></h2>
+
+						<div id="set-info-table-and-score">
+
+							<table id="set-info-table">
+								<tr>
+									<td colspan="8"><h3>F1 Score</h3>
+										<h2><span id="set-info-fscore">-.----</span></h2>
+									</td>						
+								</tr>
+
+								<tr>
+									<td>Total correct</td>
+									<td id="set-info-total-correct">---</td>
+									<td>Total incorrect</td>
+									<td id="set-info-total-incorrect">---</td>
+									<td>Precision</td>
+									<td id="set-info-precision">-.----</td>
+									<td>Recall</td>
+									<td id="set-info-recall">-.----</td>
+								</tr>
+
+							
+							</table>
+
+							<table id="set-info-details-table" style="display: none">
+								<tr>
+									<td>Acronyms (training)</td>
+									<td id="set-info-acronyms-training">---</td>
+									<td>DSTs (training)</td>
+									<td id="set-info-dsts-training">---</td>
+									<td>Spelling errors (training)</td>
+									<td id="set-info-spelling-errors-training">---</td>
+								</tr>
+								<tr>
+									<td>Acronyms (testing)</td>
+									<td id="set-info-acronyms-testing">---</td>
+									<td>DSTs (testing)</td>
+									<td id="set-info-dsts-testing">---</td>
+									<td>Spelling errors (testing)</td>
+									<td id="set-info-spelling-errors-testing">---</td>
+								</tr>
+							
+							</table>
+
+
+
+						</div>
+					</div>
+
+					<div id="averages-message-set-info-details">
+						<h3>(No set statistics available for the average scores).</h3>
+					</div>
+
+
+					<div id="averages-message">
+						<h3>(Documents are not displayed for the average scores).</h3>
+					</div>
+
+					<table id="method-results-tabs">
+						<thead>
+							<tr>
+								<th class="active" data-tab="predictions-table-container"><i class="fa fa-th-list"></i>&nbsp;&nbsp;Predictions</th>
+								<th data-tab="documents-table-container"><i class="fa fa-th-list"></i>&nbsp;&nbsp;Documents</th>
+								<th data-tab="classifier-predictions-graph"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Classifier Predictions</th>
+								<th data-tab="token-class-graph"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Predictions by Class</th>
+								<th data-tab="sources-graph"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Predictions by Source</th>
+							</tr>
+						</thead>
+					</table>	
+
+					<div id="method-results-tab-contents">			
+
+						<div id="predictions-table-container">
+							<table id="predictions-table" class="predictions-table">	
+								<thead id="predictions-table-thead">
+									<th>Class</th>
+									<th>Actual</th>
+									<th>Source</th>
+									<th>Token</th>
+									<th>Prediction</th>
+									<th>Actual</th>
+									<th>Correct?</th>
+								</thead>
+								<tbody id="predictions-table-tbody">
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									<tr class="placeholder"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+									
+								</tbody>
+							</table>
+						</div>
+
+						<div id="documents-table-container" class="hidden">
+							<table id="documents-table" class="predictions-table">	
+								<thead id="documents-table-thead">
+									<th>Id</th>
+									<th>Predictions</th>
+								</thead>
+								<tbody id="documents-table-tbody">
+
+								</tbody>
+							</table>
+
+						</div>
+
+
+						<div id="classifier-predictions-graph" class="hidden">
+							<svg id="classifier-predictions-graph-svg" style="height: 670px;"></svg>
+						</div>
+
+						<div id="token-class-graph" class="hidden">
+							<svg id="token-class-graph-svg" style="height: 670px;"></svg>
+						</div>
+
+						<div id="sources-graph" class="hidden">
+							<svg id="sources-graph-svg" style="height: 670px;"></svg>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+	
+
+		</main>
+
+
+
+
+	</body>
+
+
+	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/order.neutral.js"></script>
+
+	<script src="js/results_table.js"></script>
+	<script src="js/dataset.js"></script>
+	<script src="js/method.js"></script>
+	<script src="js/bargraph.js"></script>
+
+
+	<script type="text/javascript" src="js/d3/d3.v2.js"></script>
+
+
+	<script type="text/javascript" src="data/results.js"></script>
+
+
+	<script>
+
+		// var results2 = results;
+		// var iii = 0;
+		// results = {};
+		// for(r in results2) {
+		// 	results[r] = results2[r];
+		// 	iii++;
+		// 	if(iii > 6) {
+		// 		break;
+		// 	}
+		// }
+
+		// The index of items in the table.
+		var T_CLASS = 0;
+		var T_SOURCE = 1;
+		var T_TOKEN = 2;
+		var T_PREDICTION = 3;
+		var T_ACTUAL = 4;
+		var T_CORRECT = 5;
+		var T_CORRECT_CLASS = 6;
+		var T_CLASS_IS_CORRECT = 7;
+
+		var colour_list = ["#99FFCC", "#FFCCCC", "#CCCCFF", "#CCFF99", "#CCFFCC", "#CCFFFF", "#FFCC99", "#FFCCFF", "#FFFF99", "#FFFFCC", "#fbafff", "#ffbfaf", "#c6ffcb", "CC99FF", "#9999FF", "#FF99FF", "#FC9999", "#FBAFBA", "#C6FFFF"].reverse(); 
+
+		var sets_ul = $("#sets-ul");
+		var methods_ul = $("#methods-ul");		
+
+		var dataset_number = $("#dataset-number");
+
+		var method_dropdown = $("#method-selection-dropdown")
+		var method_dropdown_button = $("#method-selection-dropdown-button")
+		var method_dropdown_current = $("#method-selection-dropdown-current-method")
+		var method_dropdown_items   = $("#method-selection-dropdown-items")
+
+		var prev_method_button = $("#prev-method-button")
+		var next_method_button = $("#next-method-button")
+	
+		var si_experiment_name = $("#experiment-name")
+		var si_fscore          = $("#set-info-fscore");
+		var si_precision       = $("#set-info-precision");
+		var si_recall 		   = $("#set-info-recall");
+		var si_total_correct   = $("#set-info-total-correct");
+		var si_total_incorrect = $("#set-info-total-incorrect");
+
+		var pt_tbody = $("#predictions-table-tbody");
+		var dt_tbody = $("#documents-table-tbody");
+		var predictions_table = $("#predictions-table");
+		var documents_table = $("#documents-table");
+
+		var method_results_tabs = $("#method-results-tabs thead th");
+
+		var method_results_tab_contents = $("#method-results-tab-contents");
+
+		var nav_sets = $("nav#sets");
+
+		function clickMethodWithIndex(i) {
+			listEles = method_dropdown_items.children("li:visible");
+			listEles[i].click();
+		}
+
+		function getCurrentMethodIndex() {
+			var arr = method_dropdown_items.children("li:visible")//.filter(".active").index();
+			return arr.index($(".active"))
+		}
+
+		method_results_tabs.on('click', function() {
+			method_results_tabs.removeClass("active");
+			$(this).addClass("active");
+			method_results_tab_contents.children().addClass("hidden");
+			$("#" + $(this).data("tab")).removeClass("hidden");
+		});
+
+		function checkPrevNextButtons() {
+			prev_method_button.removeClass("disabled");
+			next_method_button.removeClass("disabled");
+			listEles = method_dropdown_items.children("li:visible");
+			var i = getCurrentMethodIndex();
+			if(i == 0) {
+				prev_method_button.addClass("disabled");
+			} else if (i == listEles.length - 1) {
+				next_method_button.addClass("disabled");
+			}
+		}
+
+		prev_method_button.click(function() {
+			if(!$(this).hasClass("disabled")) 			
+				clickMethodWithIndex(getCurrentMethodIndex()-1);
+		});
+		next_method_button.click(function() {
+			if(!$(this).hasClass("disabled")) 			
+				clickMethodWithIndex(getCurrentMethodIndex()+1);
+		});
+
+		function makeDataTable() {
+			return predictions_table.removeAttr('width').DataTable( {
+		    	pageLength: 50,
+		    	language: {
+        			searchPlaceholder: "Search..."
+    			},
+    			autoWidth: false,
+		    } );
+		}
+
+		function makeDocumentsDataTable() {
+			return documents_table.removeAttr('width').DataTable( {
+		    	pageLength: 50,
+		    	language: {
+        			searchPlaceholder: "Search..."
+    			},
+    			autoWidth: false,
+		    } );
+		}
+
+		function setUpClassLabelsAndSourceLabels() {
+			// Set up the datasets and methods for each dataset.
+			for(var dataset_name in results) {
+				for(var method_name in results[dataset_name]) {
+					for(var token_arr in results[dataset_name][method_name]["normalised_tokens"]) {
+						var classs = results[dataset_name][method_name]["normalised_tokens"][token_arr][T_CLASS];
+						var source = results[dataset_name][method_name]["normalised_tokens"][token_arr][T_SOURCE];
+						source_labels.add(source);
+						class_labels.add(classs);
+						if(!class_colours.hasOwnProperty(classs)) {
+							class_colours[classs] = colour_list.pop();
+						}
+						if(!source_colours.hasOwnProperty(source)) {
+							source_colours[source] = colour_list.pop();
+						}    
+					}
+				}
+			}
+			return [source_labels, class_labels];
+		}		
+
+
+
+
+		function buildAverageResultSet() {
+			// Generate the 'average' set.
+			var averageResultSet = { };
+			
+			for(var dataset_name in results) {				
+				for(var method_name in results[dataset_name]) {					
+					averageResultSet[method_name] = {}
+					averageResultSet[method_name]["normalised_tokens"] = [];
+					averageResultSet[method_name]["scores"] = {}
+					for(var k in results[dataset_name][method_name]["scores"]) {
+						averageResultSet[method_name]["scores"][k] = 0;
+					}					
+				}
+				break;
+			}
+			var numDatasets = 0;
+			for(var dataset_name in results) {
+				numDatasets++;
+				for(var method_name in averageResultSet) {
+
+					// If this dataset does not have this method, delete it from the averages set.
+					// This is to prevent odd behaviour in the averages, such as one method looking great because it was only run
+					// on one dataset.
+					if(!results[dataset_name][method_name]) {
+						delete averageResultSet[method_name]
+					} else {
+						for(var t in results[dataset_name][method_name]["normalised_tokens"]) {
+							averageResultSet[method_name]["normalised_tokens"].push(results[dataset_name][method_name]["normalised_tokens"][t]);
+						}
+						for(var k in results[dataset_name][method_name]["scores"]) {
+							averageResultSet[method_name]["scores"][k] += results[dataset_name][method_name]["scores"][k];
+						}						
+					}
+				}
+			}
+			for(var method_name in averageResultSet) {
+				for(var k in averageResultSet[method_name]["scores"]) {
+					var val = averageResultSet[method_name]["scores"][k];
+					averageResultSet[method_name]["scores"][k] = val % 1 == 0 ? val : val / numDatasets;
+				}
+			}
+
+			return averageResultSet;
+		}
+
+		function setUpDatasetsAndMethods() {
+			// Set up the datasets and methods for each dataset.
+			for(var dataset_name in results) {
+				var desc = null;
+				// TODO: Make this dynamic
+				if(dataset_name == "fold_08")
+					desc = "Many Acronyms";
+				else if(dataset_name == "fold_09")
+					desc = "Many DSTs";
+				else if(dataset_name == "fold_10")
+					desc = "Many spelling errors"
+				var dataset = new Dataset(dataset_name, desc);
+				for(var method_name in results[dataset_name]) {
+					try {
+						var method = new Method(method_name, results[dataset_name][method_name]["normalised_tokens"], results[dataset_name][method_name]["normalised_documents"], results[dataset_name][method_name]["scores"]);
+						dataset.addMethod(method);
+					} catch(err) {
+						console.log(err);
+					}			
+				} 
+				datasets.push(dataset);
+			}
+		}
+
+		var predictions_datatable = makeDataTable();
+		predictions_datatable.order.neutral();
+
+		var documents_datatable = makeDocumentsDataTable();
+		documents_datatable.order.neutral();
+
+
+		var source_colours = {}; // The colour each unique "Source" maps to.
+		var class_colours  = {}; // The colour each unique "Class" maps to.
+		var datasets = [];
+		var source_labels = new Set();
+		var class_labels  = new Set();
+		var s = setUpClassLabelsAndSourceLabels();
+
+
+		source_labels = s[0];
+		class_labeels = s[1];
+		results["Average"] = buildAverageResultSet();
+
+		
+		
+	 	var resultsTable = new ResultsTable();
+		var classifierPredictionsGraph = new BarGraph(Array.from(class_labels), "classifier-predictions-graph");
+		var tokenClassGraph = new BarGraph(Array.from(class_labels), "token-class-graph");
+		var sourceGraph    = new BarGraph(Array.from(source_labels), "sources-graph");
+
+		setUpDatasetsAndMethods();
+
+		$(window).on('load', function() {
+			datasets[0].button.click();
+			datasets[0].methods[0].button.click();
+			prev_method_button.addClass("disabled");
+
+		});
+
+	</script>
+
+</html>

@@ -1,0 +1,112 @@
+
+  .axis {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+  }
+
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+
+svg > rect {
+  stroke: none;
+}
+
+rect.bar {
+  stroke-width: 1px;
+}
+
+svg {
+  margin: 0 auto;
+  display: block;
+}
+
+
+
+
+
+path.domain { fill:none; }
+.y-axis-grid g { stroke: #888; stroke-width: 0.5px; stroke-dasharray: 2}
+
+text.label, text.label-sd {
+
+  font-weight: bold;
+}
+text.axis-label {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
+.bar-1 { fill: #6af784; stroke: #53c668; }
+.bar-2 { fill: #6bf7ff; stroke: #51c0c6; }
+.bar-3 { fill: #d0b5ff; stroke: #ae98d6; }
+.bar-4 { fill: #ffb7d7; stroke: #d396b1;}
+.bar-5 { fill: #ffe9b7; stroke: #ddca9f;}
+
+.bar-1:hover { fill: #85fc9b; }
+.bar-2:hover { fill: #84f8ff; }
+.bar-3:hover { fill: #d9c4ff; }
+.bar-4:hover { fill: #ffc4de; }
+.bar-5:hover { fill: #ffedc6; }
+
+
+rect.bar {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+
+.legend {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+
+line.maxline {
+  stroke: #222;
+  stroke-width: 0.5px;
+  opacity: 0;
+}
+line.maxline.show {
+  opacity: 1;
+}
+
+.label {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faded-in {
+  opacity: 0.8;
+}
+
+.faded-out, rect.bar.faded-out {
+  opacity: 0.15;
+}
+
+#svg-container, #svg-container-set-details {
+  background: white;
+  box-shadow: 3px 3px 4px -4px #000;
+  display: none;
+}
+#svg-container.show {
+  display: block;
+}
+
+text.label {
+  pointer-events: none;
+}
+
+
+
+#sources-graph-barchart .x.axis {
+  font-size: 16px;
+}
