@@ -133,8 +133,8 @@ class Method {
 
 
     for(var n in this.normalised_tokens){ 
-      totals[this.normalised_tokens[n][T_CLASS]] += 1   
-      corrects[this.normalised_tokens[n][T_CLASS]] += (this.normalised_tokens[n][T_CORRECT] == true ? 1 : 0);   
+      totals[this.normalised_tokens[n][T_CORRECT_CLASS]] += 1   
+      corrects[this.normalised_tokens[n][T_CORRECT_CLASS]] += (this.normalised_tokens[n][T_CORRECT] == true ? 1 : 0);   
       source_totals[this.normalised_tokens[n][T_SOURCE]] += 1   
       source_corrects[this.normalised_tokens[n][T_SOURCE]] += (this.normalised_tokens[n][T_CORRECT] == true ? 1 : 0);     
       class_totals[this.normalised_tokens[n][T_CORRECT_CLASS]] += 1   
