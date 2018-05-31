@@ -198,8 +198,18 @@ class BarGraph {
         .attr("transform", function(d,i) {
           return "translate(" + [t.x0(i) + (t.x1.rangeBand()/2) + t.x1.rangeBand(), 0] + ")"
         })
-        .attr("y", function(d) { return t.y(d[2]) - 10; })      
-        .text(function(d) { return d[2] > 0 ? d[2] : ""; });
+        .attr("y", function(d) { return t.y(d[2]) - 28; })      
+        .text(function(d) { return d[2] > 0 ? d[2] : ""; })
+
+      labels_percent_correct.enter() 
+        .append("text")
+		.attr("class", "label-sm label " + graph_id + "-label-percent_correct")
+        .attr("text-anchor", "middle")
+        .attr("transform", function(d,i) {
+          return "translate(" + [t.x0(i) + (t.x1.rangeBand()/2) + t.x1.rangeBand(), 0] + ")"
+        })
+        .attr("y", function(d) { return t.y(d[2]) - 10; })   
+        .text(function(d) { return d[2] > 0 ? "(" + (d[2]/d[1]*100).toFixed(1) + "%)" : ""; });
 
 
       bars_percent_tokens.enter()
