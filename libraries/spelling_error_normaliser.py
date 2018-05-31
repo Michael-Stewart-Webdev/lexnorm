@@ -26,8 +26,7 @@ class SpellingErrorNormaliser():
 		print "Loading embedding model...",
 		self.embedding_model = gensim.models.Word2Vec.load(config.emb_model_filename)
 		print " done."
-		if config.spellcheck_strategy == QRNN_SPE:
-			self.qrnn_predictions = self.unsegment_qrnn_predictions()
+		self.qrnn_predictions = self.unsegment_qrnn_predictions()
 
 	def set_config(self, conf):
 		global config
@@ -83,11 +82,14 @@ class SpellingErrorNormaliser():
 	# original JSON test set.
 	def unsegment_qrnn_predictions(self):
 		print "Unsegmenting QRNN predictions..."
-		with codecs.open(config.qrnn_predictions_file, 'r', 'utf-8') as f:
-			qrnn_predictions = [line.strip().split() for line in f]
-		with codecs.open(config.qrnn_test_input_file_all, 'r', 'utf-8') as f:
-			original_inputs = [line.strip().split() for line in f]
-
+		try:
+			with codecs.open(config.qrnn_predictions_file, 'r', 'utf-8') as f:
+				qrnn_predictions = [line.strip().split() for line in f]
+			with codecs.open(config.qrnn_test_input_file_all, 'r', 'utf-8') as f:
+				original_inputs = [line.strip().split() for line in f]
+		except IOError:
+			print "QRNN predictions file not found."
+			return None
 		segment_metadata = load_dataset(config.qrnn_segmentation_metadata_file)
 		output_data = []
 		combined = []

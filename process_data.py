@@ -499,7 +499,7 @@ class Preprocessor:
 			for g in groups:
 
 
-				if len(' '.join(g)) > 157:
+				if len(' '.join(g)) > 147:
 					segmented_data.append(config.qrnn_sent_too_long_char)
 				else:
 					segmented_data.append(g)
