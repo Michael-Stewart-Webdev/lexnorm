@@ -19,5 +19,4 @@ An example document from `train_data.json` might look as follows:
 
 To run the experiments, adjust the 'experiments' list in `experiments.py` and run it using `python run_experiments.py`.
 
-   
-   
+If you experience any issues running the code please let me know.
