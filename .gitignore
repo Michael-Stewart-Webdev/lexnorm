@@ -1,2 +1,6 @@
 libraries/sequence_tagging/*
 *.pyc
+data/*
+asset/*
+output/*
+visualisation/data/*
