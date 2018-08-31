@@ -12,6 +12,6 @@ The input data to the system must be in JSON format, and placed under "data/fold
 
 An example document from one of these files might look as follows:
 
-   {"tid": 1, "index": 1, "input": ["person", "triped", "over"], "output": ["person", "tripped", "over"]}
+```{"tid": 1, "index": 1, "input": ["person", "triped", "over"], "output": ["person", "tripped", "over"]}
    
    
