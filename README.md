@@ -10,8 +10,14 @@ The input data to the system must be in JSON format, and placed under "data/fold
 - test_truth.json
 - train_data.json
 
-An example document from one of these files might look as follows:
+An example document from `train_data.json` might look as follows:
 
-```{"tid": 1, "index": 1, "input": ["person", "triped", "over"], "output": ["person", "tripped", "over"]}
+```
+{"tid": 1, "index": 1, "input": ["person", "triped", "over"], "output": ["person", "tripped", "over"]}
+```
+`test_data` needs no "input", and `test_truth` needs no "output".
+
+To run the experiments, adjust the 'experiments' list in `experiments.py` and run it using `python run_experiments.py`.
+
    
    
